@@ -2,3 +2,7 @@
 /notebooks/.ipynb_checkpoints
 /notebooks/samples
 /notebooks/data.json
+/notebooks/dataset
+/notebooks/talasaki.mid
+/notebooks/tu-jesty.mid
+/notebooks/dftpeaks.py
