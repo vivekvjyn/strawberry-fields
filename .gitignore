@@ -3,8 +3,8 @@
 /notebooks/samples
 /notebooks/data.json
 /notebooks/dataset
-/notebooks/talasaki.mid
-/notebooks/tu-jesty.mid
+/notebooks/midi/talasaki.mid
+/notebooks/midi/tu-jesty.mid
 /notebooks/feature-extraction.py
-/notebooks/talasaki.json
-/notebooks/tu-jesty.json
+/notebooks/midi/talasaki.json
+/notebooks/midi/tu-jesty.json
