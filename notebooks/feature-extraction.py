@@ -61,15 +61,10 @@ for file in filenames:
 
         plt.plot(mX)
         plt.show()
-        s = 0
-        width = 15
-        while s + width < len(mX):
-            section = mX[s: s+width]
 
-            plt.plot(np.arange(s, s+width), section)
-            plt.show()
-
-            s += int(3 * width / 4) 
+        peaks = []
+        for i in range(4):
+            peaks.append(float(input()))
 
         l += 10 * H
 
