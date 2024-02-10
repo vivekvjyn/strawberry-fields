@@ -62,9 +62,13 @@ for file in filenames:
         plt.plot(mX)
         plt.show()
 
+        dfts.append(mX)
+
         peaks = []
         for i in range(4):
-            peaks.append(float(input()))
+            peaks.append(int(input()))
+
+        peakFreqs.append(peaks)   
 
         l += 10 * H
 
