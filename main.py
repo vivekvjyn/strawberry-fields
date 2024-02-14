@@ -3,7 +3,8 @@ import numpy as np
 from scipy.io import wavfile
 
 from stft import compute_spectrogram
-from peak_detection import detect_peaks
+from peak_detection import estimate_peaks, detectRealpeaks, peakInterpolation
+from two_way_mismatch import calculate_fundamental_frequencies
 
 import matplotlib.pyplot as plt
 
@@ -24,17 +25,23 @@ def process():
 
     spectrogram = compute_spectrogram(audio, sampleRate)
 
-    peak_frequencies, peak_magnitudes = detect_peaks(spectrogram, sampleRate)
+    peak_frequencyBins, peak_magnitudes = estimate_peaks(spectrogram)
+
+    peak_frequencyBins, peak_magnitudes = detectRealpeaks(spectrogram, peak_frequencyBins, peak_magnitudes)
+
+    peak_frequencyBins, peak_magnitudes = peakInterpolation(spectrogram, peak_frequencyBins, peak_magnitudes)
+
+    fundamentalFrequencies = calculate_fundamental_frequencies(peak_frequencyBins * sampleRate / 8192, peak_magnitudes)
 
     timeSteps = np.arange(len(spectrogram)) * 2048 / sampleRate
     frequencies = np.arange(len(spectrogram[0])) * sampleRate / 8192
     plt.pcolormesh(timeSteps, frequencies, spectrogram.T)
-    plt.plot(timeSteps, [p[0] for p in peak_frequencies], c='r')
-    plt.plot(timeSteps, [p[1] for p in peak_frequencies], c='b')
+    plt.plot(timeSteps, fundamentalFrequencies, c='r')
+    #plt.plot(timeSteps, [p[1] for p in peak_frequencyBins * sampleRate / 8192], c='b')
 
     plt.savefig('spectrogram.png')
 
-    #return str(len(peak_frequencies) - len(spectrogram))
+    #return str(fundamentalFrequencies)
     return send_file('spectrogram.png', mimetype='image/png')
 
 if __name__ == '__main__':
