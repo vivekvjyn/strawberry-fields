@@ -1,7 +1,3 @@
 /venv
-/notebooks/.ipynb_checkpoints
-/notebooks/samples
-/notebooks/data.json
-/notebooks/dataset
-/notebooks/midi
 /__pycache__
+.env

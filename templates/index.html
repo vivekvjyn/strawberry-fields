@@ -8,9 +8,9 @@
     </head>
     <body>
         <div class="container">
-            <form action="{{ url_for("process")}}" method="post" enctype="multipart/form-data">
-                <input type="file" class="input" name="input" accept="audio/*">
-                <button type="submit" class="search">Search</button>
+            <form action="{{ url_for('process')}}" method="post" enctype="multipart/form-data">
+                <input type="file" class="audio" name="audio" accept="audio/*">
+                <button type="submit" class="search" id="search">Search</button>
             </form>
         </div>
     </body>
