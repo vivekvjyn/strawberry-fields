@@ -53,7 +53,6 @@ def process():
     hop_length = len(input_melody)
 
     largest_similarity = -np.inf
-    songid = None
     for document in collection.find():
         current_melody = np.array(document["melody"])
 
