@@ -39,7 +39,7 @@ def estimate_peaks(spectrogram):
                 current_peak_frequencyBin = np.argmax(segment)
                 current_peak_magnitude = smoothed_spectrum[np.argmax(segment)]
                 
-                index = current_peak_frequencyBin - 10
+                index = current_peak_frequencyBin - 13
 
                 break
                 
@@ -62,16 +62,14 @@ def detectRealpeaks(spectrogram, peak_frequencyBins, peak_magnitudes):
     
     return peak_frequencyBins, peak_magnitudes
 
-def peakInterpolation(spectrogram, peak_frequencyBins, peak_magnitudes):
+def peakInterpolation(spectrogram, peak_frequencyBins):
     for i in range(len(peak_frequencyBins)):
         val = spectrogram[i][peak_frequencyBins[i]]
         lval = spectrogram[i][peak_frequencyBins[i] - 1]
         rval = spectrogram[i][peak_frequencyBins[i] + 1]
         
         currentPeakBin = peak_frequencyBins[i] + 0.5 * (lval - rval) / (lval - 2 * val + rval)
-        currentPeakMagnitude = val - 0.25 * (lval - rval) * (currentPeakBin - peak_frequencyBins[i])
         
-        peak_magnitudes[i] = currentPeakMagnitude
         peak_frequencyBins[i] = currentPeakBin
 
-    return peak_frequencyBins, peak_magnitudes
+    return peak_frequencyBins

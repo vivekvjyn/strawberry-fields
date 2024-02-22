@@ -1,7 +1,7 @@
 from dotenv import load_dotenv
 import os
 
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, send_file
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
@@ -9,8 +9,11 @@ import numpy as np
 from scipy.io import wavfile
 from fastdtw import fastdtw
 
-from short_time_fourier_transform import compute_spectrogram
-from peak_detection import estimate_peaks, detectRealpeaks, peakInterpolation
+from ultilities import stft, peak_interpolation
+from peak_detection import estimate_peaks, detectRealpeaks
+
+import matplotlib.pyplot as plt
+import json
 
 load_dotenv()
 
@@ -28,31 +31,44 @@ def home():
 
 @app.route('/process', methods =["POST"])
 def process():
-    file = request.files['audio']
-
     db = client["MusicCatalog"]
-
     collection = db["MusicCatalog"]
     
-    sampleRate, audio = wavfile.read(file)
+    file = request.files['audio']
+    sampleRate, signal = wavfile.read(file)
+    signal = signal / np.max(abs(signal))
 
-    audio = audio / np.max(abs(audio))
+    spectrogram = stft(signal, sampleRate)
 
-    spectrogram = compute_spectrogram(audio, sampleRate)
+    
 
     peak_frequencyBins, peak_magnitudes = estimate_peaks(spectrogram)
 
     peak_frequencyBins, peak_magnitudes = detectRealpeaks(spectrogram, peak_frequencyBins, peak_magnitudes)
 
-    peak_frequencyBins, peak_magnitudes = peakInterpolation(spectrogram, peak_frequencyBins, peak_magnitudes)
+    interpolated_peaks = peak_interpolation(spectrogram, peak_frequencyBins)
+
+    fundamentalfrequencies = interpolated_peaks * sampleRate / 8192
+
+    
+    
 
     input_melody = np.round(69 + 12 * np.log2((peak_frequencyBins + 0.0001) / 440))
-    input_melody = input_melody - int(np.mean(input_melody))
+
+    #plt.pcolormesh(spectrogram.T)
+    #plt.plot(peak_frequencyBins)
+    #plt.plot(440 * 2 ** ((input_melody - 69) / 12))
+    
+
+    input_melody = input_melody - np.round(np.mean(input_melody))
     
     window_length = int(2 * len(input_melody))
-    hop_length = len(input_melody)
+    hop_length = len(input_melody) // 2
+
+    
 
     largest_similarity = -np.inf
+    smallestpath = None
     for document in collection.find():
         current_melody = np.array(document["melody"])
 
@@ -64,6 +80,11 @@ def process():
             window = window - int(np.mean(window))
 
             distance, path = fastdtw(input_melody, window)
+
+            if distance < 1 / largest_similarity and smallest_distance > distance:
+                smallestpath = path
+                match = window
+                tit = document["title"]
 
             smallest_distance = min(distance, smallest_distance)
 
@@ -81,6 +102,20 @@ def process():
                 "singer": document["singer"],
                 "link": document["link"],
             }
+    
+    colors = ['g', 'm', 'c', 'y', 'k', 'orange', 'purple', 'pink']
+
+    x, y = zip(*smallestpath)
+
+    for i, j in zip(x, y):
+        plt.plot([i, j], [input_melody[i], match[j] + 20], '--', c=colors[i%len(colors)])
+
+    plt.plot(input_melody, label='Input Notes', color='blue')
+    plt.plot(np.array(match) + 20, label='Database', color='red')
+    plt.xlabel(tit)
+
+    plt.savefig("spec.png")
+    return send_file("spec.png")
         
 
     return render_template('result.html', song=song)
