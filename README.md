@@ -1,4 +1,4 @@
 # Strawberry fields
 Song retrieval using hummed query
 
-<img src="res/Architecture.png">
+<img src="res/system-architecture.png">

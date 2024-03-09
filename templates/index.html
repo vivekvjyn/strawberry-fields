@@ -1,17 +1,19 @@
-<html>
-    <head>
-        <meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strawberry Fields</title>
+    <link rel="stylesheet" href="{{url_for('static', filename='style.css')}}">
+</head>
+<body>
+    <form action="{{ url_for('process')}}" method="post" enctype="multipart/form-data" id="form">
+        <input type="hidden" id="signal" name="signal">
+        <input type="hidden" id="sampleRate" name="sample-rate">
+    </form>
 
-        <title>Strawberry Fields</title>
+    <button id="recordButton" class="record-button">Record</button>
 
-        <link rel="stylesheet" type="text/css" href="{{url_for('static', filename='style.css')}}"/>
-    </head>
-    <body>
-        <div class="container">
-            <form action="{{ url_for('process')}}" method="post" enctype="multipart/form-data">
-                <input type="file" class="audio" name="audio" accept="audio/*">
-                <button type="submit" class="search" id="search">Search</button>
-            </form>
-        </div>
-    </body>
+    <script src="{{url_for('static', filename='main.js')}}"></script>
+</body>
 </html>

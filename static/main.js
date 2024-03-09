@@ -1,77 +1,75 @@
-const recordButton = document.querySelector("#record-button");
-const audio = document.querySelector("#audio");
-const file = document.querySelector("#file");
+// Add event listener to the button
+document.getElementById("recordButton").addEventListener("click", toggleRecording);
 
-recordButton.addEventListener("click", toggleMicrophone);
-
+let mediaRecorder = null;
 let canRecord = false;
 let isRecording = false;
+let recordedChunks = [];
 
-let meadiaRecorder = null;
-
-let chunks = [];
-
-function setupAudio() {
+function initializeAudio() {
+    // Check if getUserMedia is supported by the browser
     if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
-        navigator.mediaDevices.getUserMedia({
-            audio: true
-        })
-        .then(setupStream)
-        .catch(err => {
-            console.error(err)
-        })
+        navigator.mediaDevices.getUserMedia({ audio: true })
+            .then(handleStream)
+            .catch(handleError);
     }
 }
 
-setupAudio();
+initializeAudio();
 
-function sentAudio(blob) {
-    var formData = new FormData();
-    formData.append('file', blob, 'data.wav');
-    formData.append('title', 'data.wav');
+function handleStream(stream) {
+    // Create a new MediaRecorder object with the audio stream
+    mediaRecorder = new MediaRecorder(stream);
 
-    $.ajax({
-        type: 'POST',
-        url: '/process',
-        data: formData,
-        cache: false,
-        processData: false,
-        contentType: false
-    }).done(function(blob) {
-        console.log(blob);
-    });
-}
+    // Push the recorded audio data to the array when data is available
+    mediaRecorder.ondataavailable = event => {
+        recordedChunks.push(event.data);
+    };
 
-function setupStream(stream) {
-    meadiaRecorder = new MediaRecorder(stream);
+    mediaRecorder.onstop = () => {
+        // Create a blob from the recorded chunks
+        const audioBlob = new Blob(recordedChunks, { type: "audio/wav" });
+        recordedChunks = [];
 
-    meadiaRecorder.ondataavailable = event => {
-        chunks.push(event.data);
-    }
+        const reader = new FileReader();
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
 
-    meadiaRecorder.onstop = () => {
-        const blob = new Blob(chunks, {type: "audio/wav; codecs=opus"});
-        chunks = [];
-        audioURL = URL.createObjectURL(blob);
+        // Read the audio blob as an array buffer
+        reader.onload = () => {
+            const arrayBuffer = reader.result;
+            audioContext.decodeAudioData(arrayBuffer, decodedAudio => {
+                const channelData = Array.from(decodedAudio.getChannelData(0));
 
-        sentAudio(blob)
-
-        audio.src = audioURL
-    }
+                // Set the signal input values and submit the input form
+                document.getElementById("signal").value = channelData;
+                document.getElementById("sampleRate").value = audioContext.sampleRate;
+                document.getElementById("form").submit();
+            });
+        };
+        reader.readAsArrayBuffer(audioBlob);
+    };
 
     canRecord = true;
 }
 
-function toggleMicrophone() {
+function toggleRecording() {
     if (!canRecord) return;
 
     isRecording = !isRecording;
 
+    // Start or stop recording based on the recording flag
     if (isRecording) {
-        meadiaRecorder.start();
-    }
+        mediaRecorder.start();
 
-    else {
-        meadiaRecorder.stop();
+        // Automatically stop recording after 8 seconds
+        setTimeout(() => {
+            mediaRecorder.stop();
+        }, 8000);
+    } else {
+        mediaRecorder.stop();
     }
+}
+
+function handleError(error) {
+    console.error("Error accessing user media:", error);
 }
