@@ -5,5 +5,108 @@ body {
     align-items: center;
     height: 100%;
     width: 100%;
-    margin: 0;
+    margin: 0;   
+}
+
+ul {
+    list-style-type: none;
+}
+
+.background-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.record-button {
+    display: inline-block;
+    padding: 40px 40px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.record-button::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    opacity: 0;
+}
+
+.glow-animation::before {
+    animation: glow 0.5s infinite alternate;
+}
+
+@keyframes glow {
+    0% {
+        opacity: 0.5;
+        box-shadow: 0 0 10px 5px rgba(255, 255, 255, 0.5);
+    }
+    100% {
+        opacity: 0;
+        box-shadow: none;
+    }
+}
+
+.recorder-icon {
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 60px;
+    height: 60px;
+}
+
+.result-card {
+    height: 25%;
+    width: 25%;
+    display: inline-block;
+    padding: 25px 25px;
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 10px;
+    overflow: hidden;
+    font-family: "Inconsolata", monospace;
+}
+
+.title {
+    font-weight: bold;
+    font-size: 36px;
+}
+
+.album {
+    font-size: 20px;
+    padding-bottom: 24px;
+}
+
+.singer {
+    font-size: 18px;
+    padding: 0%;
+}
+
+.composer {
+    font-size: 18px;
+}
+
+.lyricist {
+    font-size: 18px;
+    padding-bottom: 24px;
+}
+
+.youtube-icon {
+    height: 36px;
+    width: 54px;
 }

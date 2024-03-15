@@ -8,8 +8,8 @@ from pymongo.server_api import ServerApi
 import numpy as np
 from fastdtw import fastdtw
 
-from utilities import calculate_stft, interpolate_peak
-from peak_detection import estimate_peaks, detect_real_peaks
+from utilities import stft, peak_interpolation
+from peak_detection import estimate_peaks, detectRealpeaks
 
 load_dotenv()
 
@@ -35,13 +35,13 @@ def process():
 
     signal = signal / np.max(abs(signal))
 
-    spectrogram = calculate_stft(signal, sample_rate)
+    spectrogram = stft(signal, sample_rate)
 
     peak_frequency_bins, peak_magnitudes = estimate_peaks(spectrogram)
 
-    peak_frequency_bins, peak_magnitudes = detect_real_peaks(spectrogram, peak_frequency_bins, peak_magnitudes)
+    peak_frequency_bins, peak_magnitudes = detectRealpeaks(spectrogram, peak_frequency_bins, peak_magnitudes)
 
-    interpolated_peaks = interpolate_peak(spectrogram, peak_frequency_bins)
+    interpolated_peaks = peak_interpolation(spectrogram, peak_frequency_bins)
 
     fundamental_frequencies = interpolated_peaks * sample_rate / 8192
 

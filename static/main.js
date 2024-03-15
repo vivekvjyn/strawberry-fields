@@ -61,11 +61,17 @@ function toggleRecording() {
     if (isRecording) {
         mediaRecorder.start();
 
+        document.getElementById("recordButton").classList.toggle("glow-animation");
+
         // Automatically stop recording after 8 seconds
         setTimeout(() => {
+            document.getElementById("recordButton").classList.toggle("glow-animation");
+
             mediaRecorder.stop();
         }, 8000);
     } else {
+        document.getElementById("recordButton").classList.toggle("glow-animation");
+
         mediaRecorder.stop();
     }
 }
