@@ -68,7 +68,7 @@ function toggleRecording() {
             document.getElementById("recordButton").classList.toggle("glow-animation");
 
             mediaRecorder.stop();
-        }, 8000);
+        }, 15000);
     } else {
         document.getElementById("recordButton").classList.toggle("glow-animation");
 
