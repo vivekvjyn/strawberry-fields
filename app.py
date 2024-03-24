@@ -10,8 +10,6 @@ from fastdtw import fastdtw
 
 import utilities as utils
 
-import matplotlib.pyplot as plt 
-
 load_dotenv()
 
 app = Flask(__name__)
