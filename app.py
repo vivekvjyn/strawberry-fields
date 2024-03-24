@@ -8,7 +8,7 @@ from pymongo.server_api import ServerApi
 import numpy as np
 from fastdtw import fastdtw
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 import utilities as utils
 
