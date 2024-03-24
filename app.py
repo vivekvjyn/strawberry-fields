@@ -6,15 +6,11 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 
 import numpy as np
-from scipy.spatial.distance import euclidean
 from fastdtw import fastdtw
-import tensorflow as tf
 
 import utilities as utils
 
 import matplotlib.pyplot as plt 
-
-from scipy.io.wavfile import write
 
 load_dotenv()
 
@@ -25,8 +21,6 @@ app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024
 uri = f"mongodb+srv://{os.getenv('USER')}:{os.getenv('PASSWORD')}@cluster0.vultpjd.mongodb.net/?retryWrites=true&w=majority"
 
 client = MongoClient(uri, server_api=ServerApi('1'))
-
-model = tf.keras.models.load_model('model')
 
 @app.route('/')
 def home():
@@ -50,7 +44,7 @@ def process():
     #plt.plot(interpolated_peaks, c='r')
     #plt.savefig('plot.png')
 
-    interpolated_peaks = utils.extract_melody(spectrogram, model)
+    interpolated_peaks = utils.extract_melody(spectrogram)
 
     fundamental_frequencies = interpolated_peaks * sample_rate / 8192
 
@@ -79,9 +73,7 @@ def process():
             window = current_melody[window_index: window_index + window_length]
             window = window - np.mean(window)
 
-            distance, path = fastdtw(input_melody, window)
-
-            x, y = zip(*path)
+            distance = fastdtw(input_melody, window)[0]
 
             min_distance = min(distance, min_distance)
 
@@ -102,5 +94,4 @@ def process():
 
     return render_template('result.html', result=result)
 
-if __name__ == '__main__':
-    app.run()
+
