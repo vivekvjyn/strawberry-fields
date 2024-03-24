@@ -8,6 +8,8 @@ from pymongo.server_api import ServerApi
 import numpy as np
 from fastdtw import fastdtw
 
+import matplotlib.pyplot as plt
+
 import utilities as utils
 
 load_dotenv()
@@ -42,13 +44,13 @@ def process():
     #plt.plot(interpolated_peaks, c='r')
     #plt.savefig('plot.png')
 
-    interpolated_peaks = utils.extract_melody(spectrogram)
+    peaks = utils.extract_melody(spectrogram)
 
-    fundamental_frequencies = interpolated_peaks * sample_rate / 8192
+    fundamental_frequencies = peaks * sample_rate / 8192
 
     #plt.pcolormesh(spectrogram.T)
     #plt.plot(spectrogram[50])
-    #plt.plot(interpolated_peaks, c='r')
+    #plt.plot(peaks, c='r')
     #plt.savefig('plot.png')
 
     #return send_file('plot.png')
@@ -57,8 +59,8 @@ def process():
 
     input_melody = input_melody - np.mean(input_melody)
 
-    window_length = int(1.2 * len(input_melody))
-    hop_length = len(input_melody) // 8
+    window_length = int(1.12 * len(input_melody))
+    hop_length = len(input_melody) // 12
 
     max_similarity = -np.inf
     for document in collection.find():
@@ -71,9 +73,17 @@ def process():
             window = current_melody[window_index: window_index + window_length]
             window = window - np.mean(window)
 
-            distance = fastdtw(input_melody, window)[0]
+            distance, path = fastdtw(input_melody, window)
 
-            min_distance = min(distance, min_distance)
+            x, y = zip(*path)
+
+            distances = []
+            for i, j in zip(x, y):
+                distances.append(abs(input_melody[i] - window[j]))
+
+            standard_deviation = np.std(distances)
+
+            min_distance = min(5 * distance + 1 * standard_deviation, min_distance)
 
             window_index += hop_length
 

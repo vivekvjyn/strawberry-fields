@@ -19,11 +19,14 @@ def extract_melody(spectrogram):
 
     for frame in range(len(spectrogram)):
         smoothed_spectrum = savgol_filter(spectrogram[frame], window_length=15, polyorder=5)
+
+        #if max(smoothed_spectrum) < -25:
+         #   continue
         
         interpolated_peak = 0
         
         index = start_index
-        while index < len(smoothed_spectrum) - 1:  
+        while index < 55:  
             if smoothed_spectrum[index] < -25: 
                 index += 1
                 continue
@@ -34,18 +37,22 @@ def extract_melody(spectrogram):
                 
                 current_peak = np.argmax(segment)
 
-                start_index = current_peak - 5
+                if current_peak < 45:
+                    start_index = current_peak - 5
+                else:
+                    start_index = 20
 
                 center_value = spectrogram[frame][current_peak]
                 left_value = spectrogram[frame][current_peak - 1]
                 right_value = spectrogram[frame][current_peak + 1]
                 interpolated_peak = current_peak + 0.5 * (left_value - right_value) / (left_value - 2 * center_value + right_value)
 
+                peaks.append(interpolated_peak)
+
                 break                
             else:
                 index += 1
-
-        peaks.append(interpolated_peak)
+        
 
     return np.array(peaks)
 
@@ -131,7 +138,7 @@ def stft(signal, sample_rate, window_size=8191, fft_buffer_size=8192, hop_length
     rms_values = np.sqrt(np.sum(frames**2, axis=1) / window_size)
 
     # Filter frames based on RMS threshold
-    valid_frames = frames[rms_values > 0.002]
+    valid_frames = frames[rms_values > 0.05]
 
     # Normalize valid frames
     max_abs_amplitude = np.max(np.abs(valid_frames))
