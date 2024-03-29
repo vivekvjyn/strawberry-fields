@@ -1,16 +1,11 @@
 from dotenv import load_dotenv
 import os
-
-from flask import Flask, render_template, request, send_file
+from flask import Flask, render_template, request
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import utils as ut
 
-import numpy as np
-from fastdtw import fastdtw
-
-#import matplotlib.pyplot as plt
-
-import utilities as utils
+import matplotlib.pyplot as plt
 
 load_dotenv()
 
@@ -22,84 +17,34 @@ uri = f"mongodb+srv://{os.getenv('USER')}:{os.getenv('PASSWORD')}@cluster0.vultp
 
 client = MongoClient(uri, server_api=ServerApi('1'))
 
-@app.route('/')
+@app.route('/', methods=["GET", "POST"])
 def home():
-    return render_template('index.html')
+    if request.method == "POST":
+        db = client["MusicCatalog"]
+        collection = db["MusicCatalog"]
 
-@app.route('/process', methods=["POST"])
-def process():
-    db = client["MusicCatalog"]
-    collection = db["MusicCatalog"]
+        x, sr = ut.parse(request.form)
 
-    signal = np.array([float(x) for x in request.form['signal'].split(',')])
+        stft, t_onset, n_fft = ut.stft(x, sr)
+        f0_stft = ut.local_max(stft, t_onset, sr, n_fft)
+        midi_stft = ut.midi(f0_stft)
 
-    sample_rate = int(request.form['sample-rate'])
+        win_length_stft = int(1.12 * len(midi_stft))
+        hop_length_stft = len(midi_stft) // 8
+        meta_stft = ut.dtw(collection, midi_stft, win_length_stft, hop_length_stft)
 
-    signal = signal / np.max(abs(signal))
+        f0_pyin = ut.pyin(x, sr)
+        midi_pyin = ut.midi(f0_pyin)
 
-    spectrogram = utils.stft(signal, sample_rate)
+        win_length_pyin = int(1.12 * len(midi_pyin))
+        hop_length_pyin = len(midi_pyin) // 8
+        meta_pyin = ut.dtw(collection, midi_pyin, win_length_pyin, hop_length_pyin)
 
-    #plt.pcolormesh(spectrogram.T)
-    #plt.plot(spectrogram[50])
-    #plt.plot(interpolated_peaks, c='r')
-    #plt.savefig('plot.png')
+        plt.pcolormesh(stft.T)
+        plt.plot(f0_stft * n_fft / sr, c='g')
+        plt.plot(f0_pyin * n_fft / sr, c='r')
+        plt.savefig('plot.png')
 
-    peaks = utils.extract_melody(spectrogram)
-
-    fundamental_frequencies = peaks * sample_rate / 8192
-
-    #plt.pcolormesh(spectrogram.T)
-    #plt.plot(spectrogram[50])
-    #plt.plot(peaks, c='r')
-    #plt.savefig('plot.png')
-
-    #return send_file('plot.png')
-
-    input_melody = 69 + 12 * np.log2((fundamental_frequencies + 0.0001) / 440)
-
-    input_melody = input_melody - np.mean(input_melody)
-
-    window_length = int(1.12 * len(input_melody))
-    hop_length = len(input_melody) // 12
-
-    max_similarity = -np.inf
-    for document in collection.find():
-        current_melody = np.array(document["melody"])
-
-        window_index = 0
-        min_distance = np.inf
-
-        while window_index < len(current_melody) - window_length:
-            window = current_melody[window_index: window_index + window_length]
-            window = window - np.mean(window)
-
-            distance, path = fastdtw(input_melody, window)
-
-            x, y = zip(*path)
-
-            distances = []
-            for i, j in zip(x, y):
-                distances.append(abs(input_melody[i] - window[j]))
-
-            standard_deviation = np.std(distances)
-
-            min_distance = min(5 * distance + 1 * standard_deviation, min_distance)
-
-            window_index += hop_length
-
-        similarity = 1 / min_distance
-
-        if max_similarity < similarity:
-            max_similarity = similarity
-            result = {
-                "title": document["title"],
-                "album": document["album"],
-                "singer": document["singer"],
-                "composer": document["composer"],
-                "lyricist": document["lyricist"],
-                "link": document["link"]
-            }
-
-    return render_template('result.html', result=result)
-
-
+        return render_template('output.html', meta_stft=meta_stft, meta_pyin=meta_pyin)
+    else:
+        return render_template('input.html')

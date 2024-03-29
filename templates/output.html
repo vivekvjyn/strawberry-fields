@@ -1,0 +1,94 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ meta_stft[0]["title"] }}{% endblock %}
+
+{% block content %}
+<ul class="meta-stft-1">
+    <li class="title">
+        {{ meta_stft[0]["title"] }}
+    </li>
+    <li class="album">
+        {{ meta_stft[0]["album"] }}
+    </li>
+    <li class="singer">
+        <b>Singer(s):&nbsp;</b>{{ meta_stft[0]["singer"] }}
+    </li>
+    <li class="composer">
+        <b>Composer(s):&nbsp;</b>{{ meta_stft[0]["composer"] }}
+    </li>
+    <li class="lyricist">
+        <b>Lyricist(s):&nbsp;</b>{{ meta_stft[0]["lyricist"] }}
+    </li>
+    <li class="link">
+        <a href="{{ meta_stft[0]['link'] }}">
+            <img src="{{url_for('static', filename='img/youtube.png')}}" class="youtube-icon">
+        </a>
+    </li>
+</ul>
+<ul class="meta-pyin-1">
+    <li class="title">
+        {{ meta_pyin[0]["title"] }}
+    </li>
+    <li class="album">
+        {{ meta_pyin[0]["album"] }}
+    </li>
+    <li class="singer">
+        <b>Singer(s):&nbsp;</b>{{ meta_pyin[0]["singer"] }}
+    </li>
+    <li class="composer">
+        <b>Composer(s):&nbsp;</b>{{ meta_pyin[0]["composer"] }}
+    </li>
+    <li class="lyricist">
+        <b>Lyricist(s):&nbsp;</b>{{ meta_pyin[0]["lyricist"] }}
+    </li>
+    <li class="link">
+        <a href="{{ meta_pyin[0]['link'] }}">
+            <img src="{{url_for('static', filename='img/youtube.png')}}" class="youtube-icon">
+        </a>
+    </li>
+</ul>
+<ul class="meta-stft-2">
+    <li class="title">
+        {{ meta_stft[1]["title"] }}
+    </li>
+    <li class="album">
+        {{ meta_stft[1]["album"] }}
+    </li>
+    <li class="singer">
+        <b>Singer(s):&nbsp;</b>{{ meta_stft[1]["singer"] }}
+    </li>
+    <li class="composer">
+        <b>Composer(s):&nbsp;</b>{{ meta_stft[1]["composer"] }}
+    </li>
+    <li class="lyricist">
+        <b>Lyricist(s):&nbsp;</b>{{ meta_stft[1]["lyricist"] }}
+    </li>
+    <li class="link">
+        <a href="{{ meta_stft[1]['link'] }}">
+            <img src="{{url_for('static', filename='img/youtube.png')}}" class="youtube-icon">
+        </a>
+    </li>
+</ul>
+<ul class="meta-pyin-2">
+    <li class="title">
+        {{ meta_pyin[1]["title"] }}
+    </li>
+    <li class="album">
+        {{ meta_pyin[1]["album"] }}
+    </li>
+    <li class="singer">
+        <b>Singer(s):&nbsp;</b>{{ meta_pyin[1]["singer"] }}
+    </li>
+    <li class="composer">
+        <b>Composer(s):&nbsp;</b>{{ meta_pyin[1]["composer"] }}
+    </li>
+    <li class="lyricist">
+        <b>Lyricist(s):&nbsp;</b>{{ meta_pyin[1]["lyricist"] }}
+    </li>
+    <li class="link">
+        <a href="{{ meta_pyin[1]['link'] }}">
+            <img src="{{url_for('static', filename='img/youtube.png')}}" class="youtube-icon">
+        </a>
+    </li>
+</ul>
+{% endblock %}

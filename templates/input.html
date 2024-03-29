@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}Strawberry Fields{% endblock %}
+
+{% block content %}
+<form action="." method="post" enctype="multipart/form-data" id="form">
+    <input type="hidden" id="signal" name="signal">
+    <input type="hidden" id="sampleRate" name="sample-rate">
+</form>
+
+<button id="recordButton" class="record-button">
+    <img src="{{url_for('static', filename='img/recorder-icon.png')}}" class="recorder-icon">
+</button>
+
+<script src="{{url_for('static', filename='main.js')}}"></script>
+{% endblock %}
