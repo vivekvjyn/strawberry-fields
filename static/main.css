@@ -12,7 +12,7 @@ ul {
     list-style-type: none;
 }
 
-.background-image {
+.bg {
     position: absolute;
     top: 0;
     left: 0;
@@ -60,7 +60,7 @@ ul {
     }
 }
 
-.recorder-icon {
+.mic {
     position: relative;
     top: 0;
     left: 0;
@@ -72,7 +72,7 @@ ul {
     height: 25%;
     width: 30%;
     display: inline-block;
-    padding: 25px 25px;
+    padding: 25px 1.5%;
     border: 2px solid rgba(255, 255, 255, 0.1);
     background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -82,14 +82,14 @@ ul {
     font-family: "Inconsolata", monospace;
     position: absolute;
     top: 10%;
-    left: 15%;
+    left: 13.5%;
 }
 
 .meta-pyin-1 {
     height: 25%;
     width: 30%;
     display: inline-block;
-    padding: 25px 25px;
+    padding: 25px 1.5%;
     border: 2px solid rgba(255, 255, 255, 0.1);
     background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -99,14 +99,14 @@ ul {
     font-family: "Inconsolata", monospace;
     position: absolute;
     top: 10%;
-    left: 55%;
+    left: 53.5%;
 }
 
 .meta-stft-2 {
     height: 25%;
     width: 30%;
     display: inline-block;
-    padding: 25px 25px;
+    padding: 25px 1.5%;
     border: 2px solid rgba(255, 255, 255, 0.1);
     background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -116,14 +116,14 @@ ul {
     font-family: "Inconsolata", monospace;
     position: absolute;
     top: 50%;
-    left: 15%;
+    left: 13.5%;
 }
 
 .meta-pyin-2 {
     height: 25%;
     width: 30%;
     display: inline-block;
-    padding: 25px 25px;
+    padding: 25px 1.5%;
     border: 2px solid rgba(255, 255, 255, 0.1);
     background: linear-gradient(-45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
@@ -133,7 +133,7 @@ ul {
     font-family: "Inconsolata", monospace;
     position: absolute;
     top: 50%;
-    left: 55%;
+    left: 53.5%;
 }
 
 .title {
@@ -160,7 +160,7 @@ ul {
     padding-bottom: 24px;
 }
 
-.youtube-icon {
+.yt {
     height: 36px;
     width: 54px;
 }
