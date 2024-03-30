@@ -23,7 +23,7 @@ def local_max(stft, t_onset, sr, n_fft, window_length=15):
         
         bin = k
         while bin < len(dft) - window_length: 
-            if dft_savgol[bin] < -25: 
+            if dft_savgol[bin] < -21: 
                 bin += 1
                 continue
 

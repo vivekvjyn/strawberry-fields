@@ -5,6 +5,8 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import utils as ut
 
+import matplotlib.pyplot as plt
+
 load_dotenv()
 
 app = Flask(__name__)
@@ -37,6 +39,11 @@ def index():
         win_length_pyin = int(1.12 * len(midi_pyin))
         hop_length_pyin = len(midi_pyin) // 8
         meta_pyin = ut.dtw(collection, midi_pyin, win_length_pyin, hop_length_pyin)
+
+        plt.pcolormesh(stft.T)
+        plt.plot(f0_stft * n_fft / sr, c='k')
+        plt.plot(f0_pyin * n_fft / sr, c='r')
+        plt.savefig('plot.png')
 
         return render_template('results.html', meta_stft=meta_stft, meta_pyin=meta_pyin)
     else:
