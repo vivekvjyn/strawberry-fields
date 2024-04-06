@@ -63,7 +63,7 @@ function toggleRecording() {
 
         document.getElementById("recordButton").classList.toggle("glow-animation");
 
-        // Automatically stop recording after 15 seconds
+        // Automatically stop recording after 20 seconds
         setTimeout(() => {
             var button = document.getElementById("recordButton");
 
@@ -71,7 +71,7 @@ function toggleRecording() {
             button.disabled = true;
 
             mediaRecorder.stop();
-        }, 15000);
+        }, 20000);
     } else {
         var button = document.getElementById("recordButton");
 

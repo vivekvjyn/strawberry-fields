@@ -12,7 +12,7 @@ ul {
     list-style-type: none;
 }
 
-.bg {
+.background {
     position: absolute;
     top: 0;
     left: 0;
@@ -60,7 +60,7 @@ ul {
     }
 }
 
-.mic {
+.microphone {
     position: relative;
     top: 0;
     left: 0;
@@ -127,7 +127,7 @@ ul {
     padding-bottom: 24px;
 }
 
-.yt {
+.youtube-logo {
     height: 36px;
     width: 54px;
 }
