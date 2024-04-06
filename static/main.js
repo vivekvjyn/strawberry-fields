@@ -67,7 +67,7 @@ function toggleRecording() {
         setTimeout(() => {
             var button = document.getElementById("recordButton");
 
-            button.classList.toggle("glow-animation");
+            button.classList.remove("glow-animation")
             button.disabled = true;
 
             mediaRecorder.stop();

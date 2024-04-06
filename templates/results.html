@@ -1,92 +1,92 @@
 {% extends "layout.html" %}
 
-{% block title %}{{ meta_stft[0]["title"] }}{% endblock %}
+{% block title %}{{ results[0]["title"] }}{% endblock %}
 
 {% block content %}
-<ul class="meta-stft-1">
+<ul class="result result-1">
     <li class="title">
-        {{ meta_stft[0]["title"] }}
+        {{ results[0]["title"] }}
     </li>
     <li class="album">
-        {{ meta_stft[0]["album"] }}
+        {{ results[0]["album"] }}
     </li>
     <li class="singer">
-        <b>Singer(s):&nbsp;</b>{{ meta_stft[0]["singer"] }}
+        <b>Singer(s):&nbsp;</b>{{ results[0]["singer"] }}
     </li>
     <li class="composer">
-        <b>Composer(s):&nbsp;</b>{{ meta_stft[0]["composer"] }}
+        <b>Composer(s):&nbsp;</b>{{ results[0]["composer"] }}
     </li>
     <li class="lyricist">
-        <b>Lyricist(s):&nbsp;</b>{{ meta_stft[0]["lyricist"] }}
+        <b>Lyricist(s):&nbsp;</b>{{ results[0]["lyricist"] }}
     </li>
     <li class="link">
-        <a href="{{ meta_stft[0]['link'] }}">
+        <a href="{{ results[0]['link'] }}">
             <img src="{{url_for('static', filename='img/yt.png')}}" class="yt">
         </a>
     </li>
 </ul>
-<ul class="meta-pyin-1">
+<ul class="result result-2">
     <li class="title">
-        {{ meta_pyin[0]["title"] }}
+        {{ results[1]["title"] }}
     </li>
     <li class="album">
-        {{ meta_pyin[0]["album"] }}
+        {{ results[1]["album"] }}
     </li>
     <li class="singer">
-        <b>Singer(s):&nbsp;</b>{{ meta_pyin[0]["singer"] }}
+        <b>Singer(s):&nbsp;</b>{{ results[1]["singer"] }}
     </li>
     <li class="composer">
-        <b>Composer(s):&nbsp;</b>{{ meta_pyin[0]["composer"] }}
+        <b>Composer(s):&nbsp;</b>{{ results[1]["composer"] }}
     </li>
     <li class="lyricist">
-        <b>Lyricist(s):&nbsp;</b>{{ meta_pyin[0]["lyricist"] }}
+        <b>Lyricist(s):&nbsp;</b>{{ results[1]["lyricist"] }}
     </li>
     <li class="link">
-        <a href="{{ meta_pyin[0]['link'] }}">
+        <a href="{{ results[1]['link'] }}">
             <img src="{{url_for('static', filename='img/yt.png')}}" class="yt">
         </a>
     </li>
 </ul>
-<ul class="meta-stft-2">
+<ul class="result result-3">
     <li class="title">
-        {{ meta_stft[1]["title"] }}
+        {{ results[2]["title"] }}
     </li>
     <li class="album">
-        {{ meta_stft[1]["album"] }}
+        {{ results[2]["album"] }}
     </li>
     <li class="singer">
-        <b>Singer(s):&nbsp;</b>{{ meta_stft[1]["singer"] }}
+        <b>Singer(s):&nbsp;</b>{{ results[2]["singer"] }}
     </li>
     <li class="composer">
-        <b>Composer(s):&nbsp;</b>{{ meta_stft[1]["composer"] }}
+        <b>Composer(s):&nbsp;</b>{{ results[2]["composer"] }}
     </li>
     <li class="lyricist">
-        <b>Lyricist(s):&nbsp;</b>{{ meta_stft[1]["lyricist"] }}
+        <b>Lyricist(s):&nbsp;</b>{{ results[2]["lyricist"] }}
     </li>
     <li class="link">
-        <a href="{{ meta_stft[1]['link'] }}">
+        <a href="{{ results[2]['link'] }}">
             <img src="{{url_for('static', filename='img/yt.png')}}" class="yt">
         </a>
     </li>
 </ul>
-<ul class="meta-pyin-2">
+<ul class="result result-4">
     <li class="title">
-        {{ meta_pyin[1]["title"] }}
+        {{ results[3]["title"] }}
     </li>
     <li class="album">
-        {{ meta_pyin[1]["album"] }}
+        {{ results[3]["album"] }}
     </li>
     <li class="singer">
-        <b>Singer(s):&nbsp;</b>{{ meta_pyin[1]["singer"] }}
+        <b>Singer(s):&nbsp;</b>{{ results[3]["singer"] }}
     </li>
     <li class="composer">
-        <b>Composer(s):&nbsp;</b>{{ meta_pyin[1]["composer"] }}
+        <b>Composer(s):&nbsp;</b>{{ results[3]["composer"] }}
     </li>
     <li class="lyricist">
-        <b>Lyricist(s):&nbsp;</b>{{ meta_pyin[1]["lyricist"] }}
+        <b>Lyricist(s):&nbsp;</b>{{ results[3]["lyricist"] }}
     </li>
     <li class="link">
-        <a href="{{ meta_pyin[1]['link'] }}">
+        <a href="{{ results[3]['link'] }}">
             <img src="{{url_for('static', filename='img/yt.png')}}" class="yt">
         </a>
     </li>

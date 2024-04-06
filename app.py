@@ -1,9 +1,9 @@
-from dotenv import load_dotenv
 import os
+from dotenv import load_dotenv
 from flask import Flask, render_template, request
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-import utils as ut
+import utils
 
 import matplotlib.pyplot as plt
 
@@ -23,28 +23,19 @@ def index():
         db = client["MusicCatalog"]
         collection = db["MusicCatalog"]
 
-        x, sr = ut.parse(request.form)
+        y, sr = utils.parse_req(request=request)
 
-        stft, t_onset, n_fft = ut.stft(x, sr)
-        f0_stft = ut.local_max(stft, t_onset, sr, n_fft)
-        midi_stft = ut.midi(f0_stft)
+        S, onsets, fft_size = utils.stft(y, sr)
 
-        win_length_stft = int(1.12 * len(midi_stft))
-        hop_length_stft = len(midi_stft) // 8
-        meta_stft = ut.dtw(collection, midi_stft, win_length_stft, hop_length_stft)
+        #plt.plot(utils.peak_eval(S, onsets, sr, fft_size))
+        #plt.plot(utils.pyin(y, sr), c='r')
+        #plt.savefig('plot.png')
 
-        f0_pyin = ut.pyin(x, sr)
-        midi_pyin = ut.midi(f0_pyin)
+        vec1 = utils.hz_to_midi(utils.peak_eval(S, onsets, sr, fft_size))
 
-        win_length_pyin = int(1.12 * len(midi_pyin))
-        hop_length_pyin = len(midi_pyin) // 8
-        meta_pyin = ut.dtw(collection, midi_pyin, win_length_pyin, hop_length_pyin)
+        #results = ([collection.find()[0], collection.find()[1]], utils.dtw(collection, vec2, int(1.12 * len(vec2)), 5))
+        results = utils.dtw(collection, vec1, int(1.12 * len(vec1)), len(vec1) // 12)
 
-        plt.pcolormesh(stft.T)
-        plt.plot(f0_stft * n_fft / sr, c='k')
-        plt.plot(f0_pyin * n_fft / sr, c='r')
-        plt.savefig('plot.png')
-
-        return render_template('results.html', meta_stft=meta_stft, meta_pyin=meta_pyin)
-    else:
-        return render_template('index.html')
+        return render_template('results.html', results=results)
+    
+    else: return render_template('index.html')
