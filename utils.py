@@ -51,46 +51,6 @@ def dtw(collection, x, frame_length, hop_length):
         
     return results
 
-def hz_to_midi(frequencies):
-    """
-    Convert frequencies to their corresponding MIDI note numbers and center them around the mean.
-
-    Parameters:
-        frequencies (numpy.ndarray): frequencies to be converted to MIDI note numbers.
-
-    Returns:
-        note_nums (numpy.ndarray): MIDI note numbers with mean-centered values.
-
-    """
-    # Convert frequencies to MIDI note numbers
-    note_nums = librosa.hz_to_midi(frequencies)
-    # Mean-center the MIDI note numbers
-    note_nums = note_nums - np.mean(note_nums)
-
-    return note_nums
-
-def parse_req(request):
-    """
-    Parses a Flask request containing form data to extract signal and sample rate.
-
-    Parameters:
-        request (flask.request): Flask request object containing form data.
-
-    Returns:
-        y (numpy.ndarray): Signal extracted from the form as a float array.
-        sr (int): Sample rate extracted from the form.
-
-    """
-    # Extract signal from the form and convert it to a float array
-    y = np.array([float(x) for x in request.form['signal'].split(',')])
-    # Normalize the signal
-    y = y / np.max(abs(y))
-
-    # Extract sample rate from the form
-    sr = int(request.form['sample-rate'])
-
-    return y, sr
-
 def find_peaks(S, onsets, sr, fft_size):
     """
     Identify peaks in each frame of the Short-Time Fourier Transform (STFT) representation of a signal.
@@ -151,6 +111,46 @@ def find_peaks(S, onsets, sr, fft_size):
     peaks = np.array(peaks)
 
     return peaks
+
+def hz_to_midi(frequencies):
+    """
+    Convert frequencies to their corresponding MIDI note numbers and center them around the mean.
+
+    Parameters:
+        frequencies (numpy.ndarray): frequencies to be converted to MIDI note numbers.
+
+    Returns:
+        note_nums (numpy.ndarray): MIDI note numbers with mean-centered values.
+
+    """
+    # Convert frequencies to MIDI note numbers
+    note_nums = librosa.hz_to_midi(frequencies)
+    # Mean-center the MIDI note numbers
+    note_nums = note_nums - np.mean(note_nums)
+
+    return note_nums
+
+def parse_req(request):
+    """
+    Parses a Flask request containing form data to extract signal and sample rate.
+
+    Parameters:
+        request (flask.request): Flask request object containing form data.
+
+    Returns:
+        y (numpy.ndarray): Signal extracted from the form as a float array.
+        sr (int): Sample rate extracted from the form.
+
+    """
+    # Extract signal from the form and convert it to a float array
+    y = np.array([float(x) for x in request.form['signal'].split(',')])
+    # Normalize the signal
+    y = y / np.max(abs(y))
+
+    # Extract sample rate from the form
+    sr = int(request.form['sample-rate'])
+
+    return y, sr
 
 def stft(x, sr):
     """
