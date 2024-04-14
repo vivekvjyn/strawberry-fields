@@ -133,19 +133,6 @@ ul {
 }
 
 @media screen and (max-width: 1080px) {
-    .record-button {
-        padding: 120px 120px;
-        border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .microphone {
-        position: relative;
-        top: 0;
-        left: 0;
-        width: 180px;
-        height: 180px;
-    }
-
     .result {
         height: 16%;
         width: 80%;
