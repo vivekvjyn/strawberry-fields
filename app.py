@@ -5,6 +5,8 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import utils
 
+import matplotlib.pyplot as plt
+
 # Load environment variables
 load_dotenv()
 
@@ -34,7 +36,13 @@ def index():
         S, onsets, fft_size = utils.stft(y, sr)
 
         # Extract pitch vector from peaks in STFT
-        vector = utils.hz_to_midi(utils.find_peaks(S, onsets, sr, fft_size))
+        peaks = utils.find_peaks(S, onsets, sr, fft_size)
+
+        plt.pcolormesh(S.T)
+        plt.plot(peaks * fft_size / sr, c='r')
+        plt.savefig('plot.png')
+
+        vector = utils.hz_to_midi(peaks)
 
         # Perform DTW on music catalog database
         results = utils.dtw(collection, vector, int(1.12 * len(vector)), len(vector) // 12)
@@ -47,4 +55,4 @@ def index():
         return render_template('index.html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run()
