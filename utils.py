@@ -18,7 +18,7 @@ def dtw(collection, x, frame_length, hop_length):
         results (list): Top matching documents from the collection based on DTW matching.
 
     """
-    min_costs = [np.inf, np.inf, np.inf, np.inf]
+    distances = [np.inf, np.inf, np.inf, np.inf]
     results = [None, None, None, None]
 
     for document in collection.find():
@@ -33,23 +33,22 @@ def dtw(collection, x, frame_length, hop_length):
             y_sub = y[l: l + frame_length]
             y_sub = y_sub - np.mean(y_sub)
 
-            # Compute DTW between input and subsequence and update minimum cost
             D, wp = librosa.sequence.dtw(x, y_sub, subseq=True, global_constraints=True, band_rad=0.1)
             cost = min(D[-1, -1], cost)
 
             l += hop_length
 
         # Update top matching documents if the current cost is lower than any of the existing minimum costs
-        for i in range(len(min_costs)):
-            if cost < min_costs[i]:
-                min_costs.insert(i, cost)
-                min_costs = min_costs[:4]
+        for i in range(len(distances)):
+            if cost < distances[i]:
+                distances.insert(i, cost)
+                distances = distances[:4]
 
                 results.insert(i, document)
                 results = results[:4]
                 break
         
-    return results
+    return results, np.array(distances)
 
 def find_peaks(S, onsets, sr, fft_size):
     """
@@ -72,7 +71,7 @@ def find_peaks(S, onsets, sr, fft_size):
     """
     # Parameters
     frame_length = 15
-    thresh = -25
+    thresh = -28
 
     # Starting bin index for peak search
     kmin = int(librosa.note_to_hz('E2') / (sr / fft_size))
@@ -90,7 +89,7 @@ def find_peaks(S, onsets, sr, fft_size):
             if y[k] < thresh: k += 1; continue
 
             # If current bin is a peak
-            if y[k - 1] < y[k] and y[k] > y[k + 1]:
+            if y[k - 1] < y[k] and y[k] > y[k + 1]:        
                 # Obtain the region of interest (ROI) around the peak
                 roi = np.zeros(len(S[l])) - np.inf
                 roi[k: k + frame_length] = S[l][k: k + frame_length]

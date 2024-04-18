@@ -5,7 +5,7 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import utils
 
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
 # Load environment variables
 load_dotenv()
@@ -38,17 +38,17 @@ def index():
         # Extract pitch vector from peaks in STFT
         peaks = utils.find_peaks(S, onsets, sr, fft_size)
 
-        plt.pcolormesh(S.T)
-        plt.plot(peaks * fft_size / sr, c='r')
-        plt.savefig('plot.png')
+        #plt.pcolormesh(S.T)
+        #plt.plot(peaks * fft_size / sr, c='r')
+        #plt.savefig('plot.png')
 
         vector = utils.hz_to_midi(peaks)
 
         # Perform DTW on music catalog database
-        results = utils.dtw(collection, vector, int(1.12 * len(vector)), len(vector) // 12)
+        results, distances = utils.dtw(collection, vector, int(1.12 * len(vector)), len(vector) // 12)
 
         # Render results template with top matching songs
-        return render_template('results.html', results=results)
+        return render_template('results.html', results=results, distances=distances)
     
     else: 
         # Render index template for query submission
