@@ -74,7 +74,7 @@ def find_peaks(S, onsets, sr, fft_size):
     thresh = -28
 
     # Starting bin index for peak search
-    kmin = int(librosa.note_to_hz('E2') / (sr / fft_size))
+    kmin = 15
 
     # Iterate through each frame of the STFT
     peaks = []
@@ -88,6 +88,10 @@ def find_peaks(S, onsets, sr, fft_size):
             # If current bin magnitude is below threshold, move to next bin
             if y[k] < thresh: k += 1; continue
 
+            # Adjacent peaks should be similar
+            if len(peaks) and k > peaks[-1] + 5 and l not in onsets:
+                break 
+
             # If current bin is a peak
             if y[k - 1] < y[k] and y[k] > y[k + 1]:        
                 # Obtain the region of interest (ROI) around the peak
@@ -99,9 +103,9 @@ def find_peaks(S, onsets, sr, fft_size):
 
                 # Update the starting bin index for the next peak search
                 if k >= int(librosa.note_to_hz('F4') / (sr / frame_length)) or l in onsets:
-                    kmin = int(librosa.note_to_hz('E2') / (sr / frame_length))
+                    kmin = 15
                 else:
-                    kmin = np.max(peaks[-1] - 10, int(librosa.note_to_hz('E2') / (sr / frame_length)))
+                    kmin = np.max(peaks[-1] - 10, 15)
 
                 break
 
