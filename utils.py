@@ -34,13 +34,15 @@ def dtw(collection, x, frame_length, hop_length):
             y_sub = y_sub - np.mean(y_sub)
 
             D, wp = librosa.sequence.dtw(x, y_sub, subseq=True, global_constraints=True, band_rad=0.1)
-            cost = min(D[-1, -1], cost)
+            cost = min(D, cost)
 
             l += hop_length
 
         # Update top matching documents if the current cost is lower than any of the existing minimum costs
         for i in range(len(distances)):
             if cost < distances[i]:
+                if i == 1:
+                    print(document['title'])
                 distances.insert(i, cost)
                 distances = distances[:4]
 
@@ -48,7 +50,7 @@ def dtw(collection, x, frame_length, hop_length):
                 results = results[:4]
                 break
         
-    return results, np.array(distances)
+    return results
 
 def find_peaks(S, onsets, sr, fft_size):
     """
@@ -96,7 +98,7 @@ def find_peaks(S, onsets, sr, fft_size):
             if y[k - 1] < y[k] and y[k] > y[k + 1]:        
                 # Obtain the region of interest (ROI) around the peak
                 roi = np.zeros(len(S[l])) - np.inf
-                roi[k: k + frame_length] = S[l][k: k + frame_length]
+                roi[k: k + frame_length] = S[l, k: k + frame_length]
 
                 # Identify the peak within the ROI and convert bin index to frequency
                 peaks.append(np.argmax(roi) * (sr / fft_size))
@@ -191,6 +193,7 @@ def stft(x, sr):
         # If root mean square (RMS) exceeds threshold
         if np.sqrt(np.dot(y, y) / win_length) > thresh:
             # Apply windowing
+            #y = y / np.max(abs(y))
             y = y * window
 
             # Zero-padding and shifting for FFT
@@ -205,6 +208,7 @@ def stft(x, sr):
             X_db = 10 * np.log10(X)
 
             S.append(X_db)
+
         # If frame has low rms value, mark its index as an onset
         else:
             try:
