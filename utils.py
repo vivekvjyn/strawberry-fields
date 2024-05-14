@@ -21,6 +21,7 @@ def dtw(collection, x, frame_length, hop_length):
     distances = [np.inf, np.inf, np.inf, np.inf]
     results = [None, None, None, None]
 
+    i = 0
     for document in collection.find():
         # Extract pitch vector from document
         y = np.array(document["vector"])
@@ -34,20 +35,18 @@ def dtw(collection, x, frame_length, hop_length):
             y_sub = y_sub - np.mean(y_sub)
 
             D, wp = librosa.sequence.dtw(x, y_sub, subseq=True, global_constraints=True, band_rad=0.1)
-            cost = min(D, cost)
+            cost = min(D[-1, -1], cost)
 
             l += hop_length
 
         # Update top matching documents if the current cost is lower than any of the existing minimum costs
         for i in range(len(distances)):
             if cost < distances[i]:
-                if i == 1:
-                    print(document['title'])
                 distances.insert(i, cost)
-                distances = distances[:4]
+                distances = distances[: 4]
 
                 results.insert(i, document)
-                results = results[:4]
+                results = results[: 4]
                 break
         
     return results
