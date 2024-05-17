@@ -5,8 +5,6 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import utils
 
-import matplotlib.pyplot as plt
-
 load_dotenv()
 
 app = Flask(__name__)
@@ -26,13 +24,8 @@ def index():
         collection = db["MusicCatalog"]
 
         y, sr = utils.parse_request(request)
-
         f0 = utils.pyin(y, sr)
         note_nums = utils.hz_to_midi(f0)
-
-        plt.plot(note_nums)
-        plt.savefig("plot.png")
-
         results = utils.dtw(collection, note_nums, int(1.12 * len(note_nums)), len(note_nums) // 12)
 
         return render_template('results.html', results=results)
