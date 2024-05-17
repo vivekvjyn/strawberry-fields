@@ -5,15 +5,14 @@ from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import utils
 
-# Load environment variables
+import matplotlib.pyplot as plt
+
 load_dotenv()
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY')
-# Set maximum content length for file uploads
 app.config['MAX_CONTENT_LENGTH'] = 64 * 1024 * 1024
 
-# Initialize MongoClient with server API version 1
 uri = f"mongodb+srv://{os.getenv('USER')}:{os.getenv('PASSWORD')}@cluster0.vultpjd.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, server_api=ServerApi('1'))
 
@@ -23,24 +22,19 @@ def index():
     Handle requests for song retrieval by hummed query.
     """
     if request.method == "POST":
-        # Access MusicCatalog database
         db = client["MusicCatalog"]
         collection = db["MusicCatalog"]
 
-        # Parse signal and samplerate from the request
-        y, sr = utils.parse_req(request=request)
+        y, sr = utils.parse_request(request)
 
-        # Compute STFT
-        S, onsets, fft_size = utils.stft(y, sr)
+        f0 = utils.pyin(y, sr)
+        note_nums = utils.hz_to_midi(f0)
 
-        # Extract pitch vector from peaks in STFT
-        peaks = utils.find_peaks(S, onsets, sr, fft_size)
-        vector = utils.hz_to_midi(peaks)
+        plt.plot(note_nums)
+        plt.savefig("plot.png")
 
-        # Perform DTW on music catalog database
-        results = utils.dtw(collection, vector, int(1.12 * len(vector)), len(vector) // 12)
+        results = utils.dtw(collection, note_nums, int(1.12 * len(note_nums)), len(note_nums) // 12)
 
-        # Render results template with top matching songs
         return render_template('results.html', results=results)
     
     else: 
