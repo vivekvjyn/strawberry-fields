@@ -79,7 +79,3 @@ python -m flask run
 - Pedro Cano, Eloi Batlle, *A Review of Audio Fingerprinting*, November 2005.
 - Pavel Senin, *Dynamic Time Warping Algorithm Review*, January 2009.
 - Tomasz Górecki, Maciej Łuczak, *The influence of the Sakoe–Chiba band size on time series classification*, January 2019.
-- Ulrich Oberst, *The Fast Fourier Transform*, January 2007.
-- Prajoy Podder, Tanvir Zaman Khan, Mamdudul Haque Khan, M. Muktadir Rahman, *Comparative Performance Analysis of Hamming, Hanning and Blackman Window*, June 2014.
-- Lawrence Rabiner, Jont B. Allen, *Short-Time Fourier Analysis Techniques for FIR System Identification and Power Spectrum Estimation*, July 1977.
-- Robert C. Maher, James W. Beauchamp, *Fundamental frequency estimation of musical signals using a two-way mismatch procedure*, April 1994.
