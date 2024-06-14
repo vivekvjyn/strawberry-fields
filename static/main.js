@@ -1,4 +1,4 @@
-document.getElementById("recordButton").addEventListener("click", toggleRecording);
+document.getElementById("recordButton").addEventListener("click", startRecording);
 
 let mediaRecorder = null;
 let canRecord = false;
@@ -43,7 +43,7 @@ function handleStream(stream) {
     canRecord = true;
 }
 
-function toggleRecording() {
+function startRecording() {
     if (!canRecord) return;
 
     isRecording = !isRecording;
@@ -58,14 +58,8 @@ function toggleRecording() {
             button.disabled = true;
 
             mediaRecorder.stop();
-        }, 20000);
-    } else {
-        var button = document.getElementById("recordButton");
-        button.classList.toggle("glow-animation");
-        button.disabled = true;
-
-        mediaRecorder.stop();
-    }
+        }, 15000);
+    } 
 }
 
 function handleError(error) {

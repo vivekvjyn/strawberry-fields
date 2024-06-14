@@ -25,8 +25,12 @@ def index():
 
         y, sr = utils.parse_request(request)
         f0 = utils.pyin(y, sr)
+            
         note_nums = utils.hz_to_midi(f0)
-        results = utils.dtw(collection, note_nums, int(1.12 * len(note_nums)), len(note_nums) // 12)
+
+        candidates = utils.knn(collection, note_nums)
+
+        results = utils.dtw(candidates, note_nums, int(1.12 * len(note_nums)), len(note_nums) // 12)
 
         return render_template('results.html', results=results)
     

@@ -1,7 +1,10 @@
 import numpy as np
 import librosa
+from tslearn.neighbors import KNeighborsTimeSeries
 
-def dtw(collection, X, window_size, hop_length):
+model = KNeighborsTimeSeries.from_json("model.json")
+
+def dtw(candidates, X, window_size, hop_length):
     """
     Dynamic Time Warping (DTW) on a pymongo.collection.Collection.
 
@@ -9,7 +12,7 @@ def dtw(collection, X, window_size, hop_length):
     distances = [np.inf, np.inf, np.inf, np.inf]
     results = [None, None, None, None]
 
-    for document in collection.find():
+    for document in candidates:
         vector = np.array(document["vector"])
         cost = np.inf
 
@@ -40,6 +43,18 @@ def hz_to_midi(frequencies):
     note_nums = note_nums - np.mean(note_nums)
 
     return note_nums
+
+def knn(collection, X):
+    idx = set(model.kneighbors(X=[X.tolist()], n_neighbors=20, return_distance=False)[0])
+    
+    candidates = []
+    for document in collection.find():
+        if not idx.isdisjoint(set(document["hashes"])):
+            candidates.append(document)
+    
+    print(candidates)
+
+    return candidates
 
 def parse_request(request):
     """
