@@ -59,7 +59,9 @@ function startRecording() {
 
             mediaRecorder.stop();
         }, 15000);
-    } 
+    } else {
+        location.reload();
+    }
 }
 
 function handleError(error) {
