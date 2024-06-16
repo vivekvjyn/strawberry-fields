@@ -72,6 +72,12 @@ def pyin(y, sr):
     F0 estimation using Probabilistic YIN (PYIN) algorithm
     """
     f0, voiced_flag, voiced_probs = librosa.pyin(y, fmin=librosa.note_to_hz('E2'), fmax=librosa.note_to_hz('C5'), sr=sr)
+
+    y = np.isnan(f0)
+    for i in range(1, len(f0)):
+        if y[i]:
+            f0[i] = f0[i - 1]
+
     f0 = f0[~np.isnan(f0)]
     f0 = f0[0::4]
 
