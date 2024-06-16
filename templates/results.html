@@ -1,92 +1,26 @@
 {% extends "layout.html" %}
 
-{% block title %}{{ results[0]["title"] }}{% endblock %}
+{% block title %}{{ result["title"] }}{% endblock %}
 
 {% block content %}
-<ul class="result result-1">
+<ul class="result">
     <li class="title">
-        {{ results[0]["title"] }}
+        {{ result["title"] }}
     </li>
     <li class="album">
-        {{ results[0]["album"] }}
+        {{ result["album"] }}
     </li>
     <li class="singer">
-        <b>Singer(s):&nbsp;</b>{{ results[0]["singer"] }}
+        <b>Singer(s):&nbsp;</b>{{ result["singer"] }}
     </li>
     <li class="composer">
-        <b>Composer(s):&nbsp;</b>{{ results[0]["composer"] }}
+        <b>Composer(s):&nbsp;</b>{{ result["composer"] }}
     </li>
     <li class="lyricist">
-        <b>Lyricist(s):&nbsp;</b>{{ results[0]["lyricist"] }}
+        <b>Lyricist(s):&nbsp;</b>{{ result["lyricist"] }}
     </li>
     <li class="link">
-        <a href="{{ results[0]['link'] }}">
-            <img src="{{url_for('static', filename='img/youtube-logo.png')}}" class="youtube-logo">
-        </a>
-    </li>
-</ul>
-<ul class="result result-2">
-    <li class="title">
-        {{ results[1]["title"] }}
-    </li>
-    <li class="album">
-        {{ results[1]["album"] }}
-    </li>
-    <li class="singer">
-        <b>Singer(s):&nbsp;</b>{{ results[1]["singer"] }}
-    </li>
-    <li class="composer">
-        <b>Composer(s):&nbsp;</b>{{ results[1]["composer"] }}
-    </li>
-    <li class="lyricist">
-        <b>Lyricist(s):&nbsp;</b>{{ results[1]["lyricist"] }}
-    </li>
-    <li class="link">
-        <a href="{{ results[1]['link'] }}">
-            <img src="{{url_for('static', filename='img/youtube-logo.png')}}" class="youtube-logo">
-        </a>
-    </li>
-</ul>
-<ul class="result result-3">
-    <li class="title">
-        {{ results[2]["title"] }}
-    </li>
-    <li class="album">
-        {{ results[2]["album"] }}
-    </li>
-    <li class="singer">
-        <b>Singer(s):&nbsp;</b>{{ results[2]["singer"] }}
-    </li>
-    <li class="composer">
-        <b>Composer(s):&nbsp;</b>{{ results[2]["composer"] }}
-    </li>
-    <li class="lyricist">
-        <b>Lyricist(s):&nbsp;</b>{{ results[2]["lyricist"] }}
-    </li>
-    <li class="link">
-        <a href="{{ results[2]['link'] }}">
-            <img src="{{url_for('static', filename='img/youtube-logo.png')}}" class="youtube-logo">
-        </a>
-    </li>
-</ul>
-<ul class="result result-4">
-    <li class="title">
-        {{ results[3]["title"] }}
-    </li>
-    <li class="album">
-        {{ results[3]["album"] }}
-    </li>
-    <li class="singer">
-        <b>Singer(s):&nbsp;</b>{{ results[3]["singer"] }}
-    </li>
-    <li class="composer">
-        <b>Composer(s):&nbsp;</b>{{ results[3]["composer"] }}
-    </li>
-    <li class="lyricist">
-        <b>Lyricist(s):&nbsp;</b>{{ results[3]["lyricist"] }}
-    </li>
-    <li class="link">
-        <a href="{{ results[3]['link'] }}">
+        <a href="{{ result['link'] }}">
             <img src="{{url_for('static', filename='img/youtube-logo.png')}}" class="youtube-logo">
         </a>
     </li>

@@ -24,15 +24,16 @@ def index():
         collection = db["MusicCatalog"]
 
         y, sr = utils.parse_request(request)
+        
         f0 = utils.pyin(y, sr)
             
         note_nums = utils.hz_to_midi(f0)
 
         candidates = utils.knn(collection, note_nums)
 
-        results = utils.dtw(candidates, note_nums, int(1.12 * len(note_nums)), len(note_nums) // 12)
+        result = utils.dtw(candidates, note_nums, int(1.12 * len(note_nums)), len(note_nums) // 12)
 
-        return render_template('results.html', results=results)
+        return render_template('results.html', result=result)
     
     else: 
         # Render index template for query submission

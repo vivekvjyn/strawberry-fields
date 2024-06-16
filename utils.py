@@ -9,8 +9,8 @@ def dtw(candidates, X, window_size, hop_length):
     Dynamic Time Warping (DTW) on a pymongo.collection.Collection.
 
     """
-    distances = [np.inf, np.inf, np.inf, np.inf]
-    results = [None, None, None, None]
+    min_cost = np.inf
+    result = None
 
     for document in candidates:
         vector = np.array(document["vector"])
@@ -23,16 +23,12 @@ def dtw(candidates, X, window_size, hop_length):
             D = librosa.sequence.dtw(X, Y, subseq=True, global_constraints=True, band_rad=0.1, backtrack=False)
             cost = min(D[-1, -1], cost)
 
-        for i in range(len(distances)):
-            if cost < distances[i]:
-                distances.insert(i, cost)
-                distances = distances[: 4]
+        if cost < min_cost:
+            min_cost = cost
 
-                results.insert(i, document)
-                results = results[: 4]
-                break
+            result = document
         
-    return results
+    return result
 
 def hz_to_midi(frequencies):
     """
@@ -45,14 +41,17 @@ def hz_to_midi(frequencies):
     return note_nums
 
 def knn(collection, X):
+    """
+    Retrive top candidates from the database.
+
+    """
     idx = set(model.kneighbors(X=[X.tolist()], n_neighbors=20, return_distance=False)[0])
     
     candidates = []
     for document in collection.find():
         if not idx.isdisjoint(set(document["hashes"])):
+            print(document["title"])
             candidates.append(document)
-    
-    print(candidates)
 
     return candidates
 
