@@ -112,3 +112,41 @@ ul {
     height: 36px;
     width: 54px;
 }
+
+@media (max-width: 600px) {
+    .record-button {
+        padding: 50px 50px;
+    }
+    
+    .microphone {
+        width: 60px;
+        height: 60px;
+    }
+
+    .result {
+        height: 150px;
+        width: 70%;
+        padding: 20px 5%;
+        left: 10%;
+        font-size: 14px;
+    }
+
+    .title {
+        font-size: 24px;
+    }
+
+    .album {
+        font-size: 18px;
+    }
+
+    .singer, .composer, .lyricist {
+        visibility: hidden;
+    }
+
+    .youtube-logo {
+        position: absolute;
+        bottom: 25%;
+        height: 32px;
+        width: 54px;
+    }
+}

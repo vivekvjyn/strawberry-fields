@@ -50,7 +50,6 @@ def knn(collection, X):
     candidates = []
     for document in collection.find():
         if not idx.isdisjoint(set(document["hashes"])):
-            print(document["title"])
             candidates.append(document)
 
     return candidates
