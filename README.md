@@ -56,8 +56,8 @@ The collection should have the following attributes.
    "composer": "Composer(s)",
    "lyricist": "Lyricist(s)",
    "link": "Link to the song in a streaming platform",
-   "vector": [ ... ],
-   "hashes": [ ... ]
+   "vector": [],
+   "hashes": []
 }
 ```
 
