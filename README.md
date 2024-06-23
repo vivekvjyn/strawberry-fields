@@ -53,7 +53,7 @@ python features.py
 Enter the requested details and the path to the MIDI file of the song.
 
 Once all the songs are added to the database, run `train.py` to update the model to fit your database.
-```bash
+```sh
 python train.py
 ```
 
