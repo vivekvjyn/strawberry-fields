@@ -60,6 +60,5 @@ data = {
     "vector": vector
 }
 
-print(data)
-#collection.insert_one(data)
+collection.insert_one(data)
 
