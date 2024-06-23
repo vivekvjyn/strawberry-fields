@@ -87,6 +87,15 @@ graph TD;
     D --> E[["Result\n(Closest matching song)"]];
     F[("Database")] -.-> C
 ```
+
+## Contributing
+Contributions to Strawberry Fields are welcome! If you'd like to contribute, follow these steps:
+1. **Fork the Repository:** Start by forking the [Strawberry Fields](https://github.com/enter-opy/strawberry-fields).
+2. **Make Changes:** Create a new branch, make your changes, and commit them to your branch.
+3. **Create a Pull Request:** Push your changes to your fork and submit a pull request to the original repository.
+## License
+This project is licensed under the GNU General Public License. See the [LICENSE](https://github.com/enter-opy/strawberry-fields/blob/main/LICENSE) for details.
+
 ### References
 
 - Joan Serrà, Josep Ll. Arcos, *An Empirical Evaluation of Similarity Measures for Time Series Classification*, Jan 2014.
