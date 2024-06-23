@@ -81,11 +81,12 @@ python -m flask run
 ```mermaid
 graph TD;
     A["Hummed query"] --> B["Probabilistic YIN\n(Pitch Extraction)"];
+    G["kNN Model"] -.-> C
     B --> C["k Nearest Neighbors (based on DTW metric)\nCandidate selection"];
     C --> D["Dynamic Time Warping\n"];
+    F["Database"] -.-> C
+    C -.-> F
     D --> E["Result\n(Closest matching song)"];
-    F["Database"] --> C
-    G["kNN Model"] --> C
 ```
 ### References
 
