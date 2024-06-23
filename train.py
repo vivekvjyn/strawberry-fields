@@ -35,6 +35,4 @@ for document in collection.find():
 knn = KNeighborsTimeSeries(n_neighbors=10, metric='dtw')
 knn.fit(dataset)
 
-distances, indices = knn.kneighbors([dataset[12]], return_distance=True)
-
 knn.to_json('title')
