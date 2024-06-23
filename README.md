@@ -69,7 +69,7 @@ Go to your localhost server in your web browser and allow microphone access when
 graph TD;
     A["Query (Hummed melody)"] --> B["Probabilistic YIN"];
     G(("kNN Model")) -.-> C
-    B --> C["k Nearest Neighbors (DTW metric)"];
+    B --> C["k Nearest Neighbors (DTW)"];
     C --> D["Dynamic Time Warping"];
     D --> E["Result\n(Metadata)"];
     F[("Database")] -.-> C
