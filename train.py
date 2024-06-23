@@ -35,4 +35,4 @@ for document in collection.find():
 knn = KNeighborsTimeSeries(n_neighbors=10, metric='dtw')
 knn.fit(dataset)
 
-knn.to_json('title')
+knn.to_json('model.json')
