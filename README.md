@@ -46,14 +46,12 @@ pip install -r requirements.txt
 
 Ensure you have MongoDB installed and running. Create a database named `MusicCatalog` with a collection named `MusicCatalog`.
 
-### Pitch vectors
 Run `features.py` to add a song to your database.
 ```bash
 python features.py
 ```
 Enter the requested details and the path to the MIDI file of the song.
 
-### Training the model
 Once all the songs are added to the database, run `train.py` to update the model to fit your database.
 ```bash
 python train.py
