@@ -80,11 +80,11 @@ python -m flask run
 ## System Architecture
 ```mermaid
 graph TD;
-    A["Hummed query"] --> B["Probabilistic YIN\n(Pitch Extraction)"];
-    G[["kNN Model"]] -.-> C
+    A[["Hummed query"]] --> B["Probabilistic YIN\n(Pitch Extraction)"];
+    G(("kNN Model")) -.-> C
     B --> C["k Nearest Neighbors (based on DTW metric)\nCandidate selection"];
     C --> D["Dynamic Time Warping\n"];
-    D --> E["Result\n(Closest matching song)"];
+    D --> E[["Result\n(Closest matching song)"]];
     F[("Database")] -.-> C
 ```
 ### References
