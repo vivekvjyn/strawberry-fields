@@ -2,7 +2,7 @@
 Song retrieval using hummed query
 
 ## Setup
-**Clone the Repository:**
+**Clone the Repository.**
 ```bash
 git clone https://github.com/enter-opy/strawberry-fields.git
 cd sound-of-music
