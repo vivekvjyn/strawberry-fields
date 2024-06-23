@@ -73,6 +73,7 @@ graph TD;
     C --> D["Dynamic Time Warping"];
     D --> E["Result\n(Metadata)"];
     F[("Database")] -.-> C
+    F -.-> G
 ```
 
 ## Contributing
