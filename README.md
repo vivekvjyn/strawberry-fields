@@ -2,12 +2,12 @@
 Song retrieval using hummed query
 
 ## Setup
-**Clone the Repository.**
+Clone the Repository
 ```bash
 git clone https://github.com/enter-opy/strawberry-fields.git
 cd sound-of-music
 ```
-### Environment setup.
+### Environment setup
 Create a virtual environment.
 ```bash
 pip install virtualenv
@@ -31,7 +31,7 @@ USER=username
 PASSWORD=password
 SECRET_KEY=secret_key
 ```
-Replace username, password, and secret_key with your actual MongoDB username, password, and Flask secret key.
+Replace `username`, `password`, and `secret_key` with the username and password of your MongoDB database and the secret key for your Flask app.
 
 ### Install Dependencies
 
@@ -68,12 +68,10 @@ Go to your localhost server in your web browser and allow microphone access when
 ```mermaid
 graph TD;
     A["Query (Hummed melody)"] --> B["Probabilistic YIN"];
-    G(("kNN Model")) -.-> C
-    B --> C["k Nearest Neighbors (DTW)"];
-    C --> D["Dynamic Time Warping"];
-    D --> E["Result\n(Metadata)"];
-    F[("Database")] -.-> C
-    F -.-> G
+    B -->|Pitch vector| C["k Nearest Neighbors (DTW)"];
+    C -->|Candidates| D["Dynamic Time Warping"];
+    D -->|Closest match| E["Result\n(Metadata)"];
+    F[("Database")] -.->|Training set| C
 ```
 
 ## Contributing
