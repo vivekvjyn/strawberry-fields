@@ -2,7 +2,7 @@
 Song retrieval using hummed query
 
 ## Setup
-Clone the Repository
+Clone the Repository.
 ```bash
 git clone https://github.com/enter-opy/strawberry-fields.git
 cd sound-of-music
@@ -13,7 +13,7 @@ Create a virtual environment.
 pip install virtualenv
 virtualenv venv
 ```
-Activate your environment.
+Activate the environment.
 
    **Windows:**
 ```bash
@@ -66,12 +66,14 @@ python -m flask run
 Go to your localhost server in your web browser and allow microphone access when prompted.
 ## System Architecture
 ```mermaid
-graph TD;
-    A["Query (Hummed melody)"] --> B["Probabilistic YIN"];
-    B -->|Pitch vector| C["k Nearest Neighbors (DTW)"];
-    C -->|Candidates| D["Dynamic Time Warping"];
-    D -->|Closest match| E["Result\n(Metadata)"];
-    F[("Database")] -.->|Training set| C
+flowchart TB;
+   A[/"Query\n(Hummed melody)"/] --> B["Probabilistic YIN"];
+   B -->|Pitch vector| C["k Nearest Neighbors (DTW)"];
+   C -->|Candidates| D["Dynamic Time Warping"];
+   D -->|Closest match| E[/"Result\n(Metadata)"/];
+   G[("Database")] -.->|Training set| C
+   F["fa:fa-file MIDI"] -->|Pitch vectors| G
+    
 ```
 
 ## Contributing
