@@ -6,7 +6,7 @@ model = KNeighborsTimeSeries.from_json("model.json")
 
 def dtw(candidates, X, window_size, hop_length):
     """
-    Dynamic Time Warping (DTW) on a pymongo.collection.Collection.
+    Perform Dynamic Time Warping (DTW) on the candidates to find the closest match.
 
     """
     min_cost = np.inf
@@ -32,7 +32,7 @@ def dtw(candidates, X, window_size, hop_length):
 
 def hz_to_midi(frequencies):
     """
-    Frequencies to MIDI note numbers.
+    Convert frequencies to mean centered MIDI note numbers.
 
     """
     note_nums = librosa.hz_to_midi(frequencies)
@@ -42,7 +42,7 @@ def hz_to_midi(frequencies):
 
 def knn(collection, X):
     """
-    Retrive top candidates from the database.
+    Select top candidates from the database.
 
     """
     idx = set(model.kneighbors(X=[X.tolist()], n_neighbors=20, return_distance=False)[0])

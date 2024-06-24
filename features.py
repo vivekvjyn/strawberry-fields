@@ -6,21 +6,6 @@ from pymongo.server_api import ServerApi
 
 load_dotenv()
 
-def extract_vec(path='midi.mid', sr=48000, hop_length=2048):
-    midi = MidiFile(path)
-
-    vector = []
-
-    for message in midi.play():
-        if message.type == 'note_off':
-            time = message.time
-            note = message.note
-            
-            for i in range(int(time * sr / hop_length)):
-                vector.append(note)
-
-    return vector
-
 uri = f"mongodb+srv://{os.getenv('USER')}:{os.getenv('PASSWORD')}@cluster0.vultpjd.mongodb.net/?retryWrites=true&w=majority"
 client = MongoClient(uri, server_api=ServerApi('1'))
 
