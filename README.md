@@ -72,7 +72,7 @@ flowchart TB;
    C -->|Candidates| D["Dynamic Time Warping"];
    D -->|Closest match| E[/"Result\n(Metadata)"/];
    G[("Database")] -.->|Training set| C
-   F["fa:fa-file MIDI"] -->|Pitch vectors| G
+   F["fa:fa-camera-retro MIDI"] -->|Pitch vectors| G
     
 ```
 
