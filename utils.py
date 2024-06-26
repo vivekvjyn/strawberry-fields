@@ -54,17 +54,17 @@ def knn(collection, X):
 
     return candidates
 
-def parse_request(request):
+def parse(request):
     """
     Parses a request form.
 
     """
 
-    y = np.array([float(x) for x in request.form['signal'].split(',')])
-    y = y / np.max(abs(y))
-    sr = int(request.form['sample-rate'])
+    arr = np.fromstring(request.form['signal'], sep=',')
+    arr = arr / np.max(abs(arr))
+    fs = int(request.form['sample-rate'])
 
-    return y, sr
+    return arr, fs
 
 def pyin(y, sr):
     """

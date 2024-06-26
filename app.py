@@ -23,9 +23,9 @@ def index():
         db = client["MusicCatalog"]
         collection = db["MusicCatalog"]
 
-        y, sr = utils.parse_request(request)
+        x, fs = utils.parse(request)
         
-        f0 = utils.pyin(y, sr)
+        f0 = utils.pyin(x, fs)
             
         note_nums = utils.hz_to_midi(f0)
 
