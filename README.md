@@ -95,11 +95,18 @@ This project is licensed under the GNU General Public License. See the [LICENSE]
 
 [^2]: Hiroaki Sakoe, Seibi Chiba, *Dynamic programming algorithm optimization for spoken word recognition*, February 1978.
 
-- Ivan Fernandez Cocano, *Expanding the evaluation of Audio to Score Matching applying Audio Querying strategies*, August 2023.
-- Colin Raffel, Daniel P. W. Ellis, *Large-Scale Contend-Based Matching of Midi and Audio Files*, January 2015.
-- Matija Marolt, *A mid level melody based representation for calculating audio similarity*, January 2006.
-- Matthias Mauch and Simon Dixon, *PYIN: A Fundamental Frequency Estimator Using Probabilistic Threshold Distributions*, May 2014.
-- Neal Gallagher, *Savitzky-Golay Smoothing and Differentiation Filter*, January 2020.
-- Pedro Cano, Eloi Batlle, *A Review of Audio Fingerprinting*, November 2005.
-- Pavel Senin, *Dynamic Time Warping Algorithm Review*, January 2009.
-- Tomasz Górecki, Maciej Łuczak, *The influence of the Sakoe–Chiba band size on time series classification*, January 2019.
+[^3]: Ivan Fernandez Cocano, *Expanding the evaluation of Audio to Score Matching applying Audio Querying strategies*, August 2023.
+
+[^4]: Colin Raffel, Daniel P. W. Ellis, *Large-Scale Contend-Based Matching of Midi and Audio Files*, January 2015.
+
+[^5]: Matija Marolt, *A mid level melody based representation for calculating audio similarity*, January 2006.
+
+[^6]: Matthias Mauch and Simon Dixon, *PYIN: A Fundamental Frequency Estimator Using Probabilistic Threshold Distributions*, May 2014.
+
+[^7]: Neal Gallagher, *Savitzky-Golay Smoothing and Differentiation Filter*, January 2020.
+
+[^8]: Pedro Cano, Eloi Batlle, *A Review of Audio Fingerprinting*, November 2005.
+
+[^9]: Pavel Senin, *Dynamic Time Warping Algorithm Review*, January 2009.
+
+[^10]: Tomasz Górecki, Maciej Łuczak, *The influence of the Sakoe–Chiba band size on time series classification*, January 2019.
