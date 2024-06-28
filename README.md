@@ -92,9 +92,6 @@ This project is licensed under the GNU General Public License. See the [LICENSE]
 ### References
 
 - Joan Serrà, Josep Ll. Arcos, [*An Empirical Evaluation of Similarity Measures for Time Series Classification*](https://arxiv.org/abs/1401.3973#:~:text=An%20Empirical%20Evaluation%20of%20Similarity%20Measures%20for%20Time%20Series%20Classification,-Joan%20Serr%C3%A0%2C%20Josep&text=Time%20series%20are%20ubiquitous%2C%20and,series%20clustering%20and%20classification%20systems.), Jan 2014.
-
 - Hiroaki Sakoe, Seibi Chiba, [*Dynamic programming algorithm optimization for spoken word recognition*](https://ieeexplore.ieee.org/document/1163055), February 1978.
-
 - Ivan Fernandez Cocano, [*Expanding the evaluation of Audio to Score Matching applying Audio Querying strategies*](https://zenodo.org/records/8380501), August 2023.
-
 - Matthias Mauch and Simon Dixon, [*PYIN: A Fundamental Frequency Estimator Using Probabilistic Threshold Distributions*](https://ieeexplore.ieee.org/document/6853678), May 2014.
