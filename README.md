@@ -91,8 +91,10 @@ This project is licensed under the GNU General Public License. See the [LICENSE]
 
 ### References
 
-- Joan Serrà, Josep Ll. Arcos, *An Empirical Evaluation of Similarity Measures for Time Series Classification*, Jan 2014.
-- Hiroaki Sakoe, Seibi Chiba, *Dynamic programming algorithm optimization for spoken word recognition*, February 1978.
+[^1]: Joan Serrà, Josep Ll. Arcos, [*An Empirical Evaluation of Similarity Measures for Time Series Classification*](https://arxiv.org/abs/1401.3973#:~:text=An%20Empirical%20Evaluation%20of%20Similarity%20Measures%20for%20Time%20Series%20Classification,-Joan%20Serr%C3%A0%2C%20Josep&text=Time%20series%20are%20ubiquitous%2C%20and,series%20clustering%20and%20classification%20systems.), Jan 2014.
+
+[^2]: Hiroaki Sakoe, Seibi Chiba, *Dynamic programming algorithm optimization for spoken word recognition*, February 1978.
+
 - Ivan Fernandez Cocano, *Expanding the evaluation of Audio to Score Matching applying Audio Querying strategies*, August 2023.
 - Colin Raffel, Daniel P. W. Ellis, *Large-Scale Contend-Based Matching of Midi and Audio Files*, January 2015.
 - Matija Marolt, *A mid level melody based representation for calculating audio similarity*, January 2006.
