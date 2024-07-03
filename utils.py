@@ -2,7 +2,7 @@ import numpy as np
 import librosa
 from tslearn.neighbors import KNeighborsTimeSeries
 
-model = KNeighborsTimeSeries.from_json("model.json")
+model = KNeighborsTimeSeries.from_json("model/model.json")
 
 def dtw(candidates, X, window_size, hop_length):
     """
