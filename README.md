@@ -69,7 +69,7 @@ Go to your localhost server in your web browser and allow microphone access when
 ## System Architecture
 ```mermaid
 flowchart TB;
-   A[/"Query\n(Hummed melody)"/] --> B["Probabilistic YIN"];
+   A[/"Query"/] -->|"Hummed melody"| B["Probabilistic YIN"];
    B -->|Pitch vector| C["k Nearest Neighbors (DTW)"];
    C -->|Candidates| D["Dynamic Time Warping"];
    D -->|Closest match| E[/"Result\n(Metadata)"/];
